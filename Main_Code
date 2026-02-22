@@ -1,1 +1,113 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
 
+class expense_tracker{
+    double amt;
+    String itemi;
+    Scanner in;
+    ArrayList<String> itemlist = new ArrayList<>();
+
+    public expense_tracker(Scanner in){
+        this.in = in;
+    }
+
+    public void time(){
+        System.out.println("Do you want to enter time Y/N: ");
+            String time_choice = in.nextLine();
+            if(time_choice.equalsIgnoreCase("y")){
+                System.out.println("Enter time in Format(HH:MM)");
+                String input = in.nextLine();
+                LocalTime userTime = LocalTime.parse(input);
+            }else{
+                System.out.println("Let's move forward");
+            };
+    }
+
+
+    public void category(){
+        Scanner in = new Scanner(System.in);
+        System.out.println("Which category you want to select:\n1.Food\n2.Travel\n3.Shopping\n4.Education\n5.Loans\n6.EMI");
+        System.out.print("Enter your choice: ");
+        int choice_category = in.nextInt();
+        // String Food,Travel,Shopping, Education,Loans,EMI;
+        switch(choice_category){
+            case 1:
+            System.out.println("Category [ FOOD ]");
+            in.nextLine(); //to clear the buffer 
+            System.out.print("Enter Food item: ");
+            itemi = in.nextLine(); //food item
+            break;
+
+            case 2:
+            System.out.println("Category [ Travel ]");
+            in.nextLine();
+            System.out.print("Enter Travel item: ");
+            itemi = in.nextLine(); //travel item
+            break;
+
+            case 3:
+            System.out.println("Category [ Shopping ]");
+            in.nextLine();
+            System.out.print("Enter Shopping item: ");
+            itemi = in.nextLine(); //shopping item
+            break;
+            
+            case 4:
+            System.out.println("Category [ Education ]");
+            in.nextLine();
+            System.out.print("Enter Education item: ");
+            itemi = in.nextLine(); //education item
+            break;
+
+            case 5:
+            System.out.println("Category [ Loans ]");
+            in.nextLine();
+            System.out.print("Enter Loan item: ");
+            itemi = in.nextLine(); //loan item
+            break;
+
+            case 6:
+            System.out.println("Category [ EMI ]");
+            in.nextLine();
+            System.out.print("Enter EMI item: ");
+            itemi = in.nextLine(); //emi item
+            break;
+
+            default:
+                System.out.println("Please choose a correct option");
+                
+        }
+        System.out.print("Enter Amount: ");
+        amt = in.nextDouble();
+        time();
+        itemlist.add(itemi +" Rs."+ amt);
+        System.out.println(itemi +" added | Rs." + amt );
+        LocalDate todaydate = LocalDate.now();
+        System.out.println("Date - " + todaydate + " | Expense List -> "+ itemlist);
+    }
+    
+    }
+   
+public class xpenst{
+    public static void main(String[] args){
+    Scanner in = new Scanner(System.in);
+    System.out.println("________Welcome to XPENST________");
+    System.out.println("-> One stop destination to manage your Expenses <-");
+
+    expense_tracker et = new expense_tracker(in); 
+    
+    String loop_choice = "y";
+    while(loop_choice.equalsIgnoreCase("y")){
+    try{  et.category();
+    System.out.println("Do you want to add another item Y/N: ");
+    loop_choice = in.nextLine();
+    }catch(InputMismatchException e){
+        System.out.println("Enter choose a valid option");
+    }
+    }
+    System.out.println("Thank you for using XPENST\nSee you soon...");
+    in.close();
+    
+    }
+} 
