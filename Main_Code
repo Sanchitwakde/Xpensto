@@ -2,11 +2,31 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-class expense_tracker{
+class expense{
     double amt;
     String itemi;
+    String category;
+    LocalDate tdate; // today date 
+    LocalTime ntime; //time of item purchased
+
+    public expense(double amt,String itemi,String category,LocalDate tdate,LocalTime ntime){
+        this.amt = amt;
+        this.itemi = itemi;
+        this.category = category;
+        this.tdate = tdate;
+        this.ntime = ntime;
+    }
+
+}
+class expense_tracker{
     Scanner in;
-    ArrayList<String> itemlist = new ArrayList<>();
+    double amt;
+    String itemi;
+    String category;
+    LocalDate date; // today date 
+    LocalTime time; //time of item purchased
+
+    ArrayList<expense> expnselist = new ArrayList<>();
 
     public expense_tracker(Scanner in){
         this.in = in;
@@ -18,7 +38,7 @@ class expense_tracker{
             if(time_choice.equalsIgnoreCase("y")){
                 System.out.println("Enter time in Format(HH:MM)");
                 String input = in.nextLine();
-                LocalTime userTime = LocalTime.parse(input);
+                time = LocalTime.parse(input);
             }else{
                 System.out.println("Let's move forward");
             };
@@ -26,66 +46,59 @@ class expense_tracker{
 
 
     public void category(){
-        Scanner in = new Scanner(System.in);
+        
         System.out.println("Which category you want to select:\n1.Food\n2.Travel\n3.Shopping\n4.Education\n5.Loans\n6.EMI");
         System.out.print("Enter your choice: ");
-        int choice_category = in.nextInt();
-        // String Food,Travel,Shopping, Education,Loans,EMI;
+       int choice_category = in.nextInt();
+        in.nextLine(); // to clear buffer 
+
         switch(choice_category){
             case 1:
-            System.out.println("Category [ FOOD ]");
-            in.nextLine(); //to clear the buffer 
-            System.out.print("Enter Food item: ");
-            itemi = in.nextLine(); //food item
+            category = "Food";
             break;
 
             case 2:
-            System.out.println("Category [ Travel ]");
-            in.nextLine();
-            System.out.print("Enter Travel item: ");
-            itemi = in.nextLine(); //travel item
+            category = "Travel";
             break;
 
             case 3:
-            System.out.println("Category [ Shopping ]");
-            in.nextLine();
-            System.out.print("Enter Shopping item: ");
-            itemi = in.nextLine(); //shopping item
+            category = "Shopping";
             break;
             
             case 4:
-            System.out.println("Category [ Education ]");
-            in.nextLine();
-            System.out.print("Enter Education item: ");
-            itemi = in.nextLine(); //education item
+            category = "Education";
             break;
 
             case 5:
-            System.out.println("Category [ Loans ]");
-            in.nextLine();
-            System.out.print("Enter Loan item: ");
-            itemi = in.nextLine(); //loan item
+            category = "Loan";
             break;
 
             case 6:
-            System.out.println("Category [ EMI ]");
-            in.nextLine();
-            System.out.print("Enter EMI item: ");
-            itemi = in.nextLine(); //emi item
+            category = "EMI";
             break;
 
             default:
                 System.out.println("Please choose a correct option");
                 
         }
+        System.out.print("Enter item: ");
+        itemi = in.nextLine(); 
+
         System.out.print("Enter Amount: ");
         amt = in.nextDouble();
-        time();
-        itemlist.add(itemi +" Rs."+ amt);
-        System.out.println(itemi +" added | Rs." + amt );
-        LocalDate todaydate = LocalDate.now();
-        System.out.println("Date - " + todaydate + " | Expense List -> "+ itemlist);
-    }
+        in.nextLine();
+
+        times(); // to get time when purchased 
+        
+        date = LocalDate.now(); // to get the date on which it is filling expense 
+
+        expense expnse = new expense(amt,itemi,category,date,time);
+        expnselist.add(expnse);
+
+        System.out.println("__Expense List__");
+        for(expense e : expnselist){
+            System.out.println("Item: " + e.itemi +" | "+ "Rs. "+e.amt+" | "+"Category: "+ e.category +" | "+"Today's Date: "+ e.tdate+" | "+"Time: "+e.ntime);
+        }
     
     }
    
