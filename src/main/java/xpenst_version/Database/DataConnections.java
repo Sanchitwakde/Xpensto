@@ -7,7 +7,7 @@ public class DataConnections {
 
     private static final String URL = "jdbc:mysql://localhost:3306/xpenst_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "san2772"; 
+    private static final String PASSWORD = "Password"; 
     
     public static Connection getConnection() {
         try {
