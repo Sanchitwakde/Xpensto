@@ -12,16 +12,16 @@
 
     <properties> 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
-    <maven.compiler.release>25</maven.compiler.release> 
+    <maven.compiler.release>21</maven.compiler.release> 
     <exec.mainClass>xpenst_version</exec.mainClass> 
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>5.9</version>
-        </dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version> 
+    </dependency>
     </dependencies>
 
 </project>
