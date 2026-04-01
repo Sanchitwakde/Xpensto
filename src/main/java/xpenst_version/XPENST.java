@@ -90,8 +90,17 @@ public static void main(String[] args){
                 );
             }
             }
+            System.out.println("Do you want to delete any Expense Y/N: ");
+            String del_ans = in.nextLine();
+             if(del_ans.equalsIgnoreCase("y")){
+                System.out.println("Enter Record ID to delete: ");
+                int delete = in.nextInt();
+                service.deleteRecord(delete);
+             }else{
+                System.out.println("Please enter a valid option");
+             }
             }catch(InputMismatchException e){
-                    System.out.println("Enter choose a valid option");
+                    System.out.println("Please enter a valid option");
                 }
             }
             System.out.println("Thank you for using XPENST ");
