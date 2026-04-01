@@ -65,6 +65,9 @@ public class ExpenseService {
     public List<Expense> view_all(){
         return dao.view_all();
     }
+    public void deleteRecord(int id){
+        dao.deleteRecord(id);
+    }
     
     }
 
