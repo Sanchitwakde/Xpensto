@@ -23,17 +23,15 @@ public class expnseDao {
             System.out.println("Expense Added Succesfully");
         }
         catch(SQLException e) {
-            // e.printStackTrace();
              System.out.println("Expense not added" + e.getMessage());
         }
     }
 
     public List<Expense> view_all(){
         List<Expense> list = new ArrayList<>();
-        try {
-            Connection conn = DataConnections.getConnection();
-            String sql = "Select * from expenses";
-            PreparedStatement pstat = conn.prepareStatement(sql); // used to create a statement object to run sql 
+        String history_sql = "Select * from expenses";
+        try (Connection conn = DataConnections.getConnection();
+            PreparedStatement pstat = conn.prepareStatement(history_sql)){ // used to create a statement object to run sql 
 
             java.sql.ResultSet rs = pstat.executeQuery(); //ResultSet is inbuilt to fetch table like object 
             //executeQuery --  execute sql select statement 
@@ -52,9 +50,22 @@ public class expnseDao {
         } catch (SQLException e) {
             System.out.println("Cannot view all the expenses");
         }
-        
         return list;
+    }
+    public void deleteRecord(int id){
+        String delete_sql = " delete from expenses where id = ?";
+        try(Connection conn = DataConnections.getConnection();
+        PreparedStatement pstat = conn.prepareStatement(delete_sql)){
+        pstat.setInt(1,id);
 
+        int deletedrow = pstat.executeUpdate();
+        if(deletedrow>0){
+            System.out.println(deletedrow + " record is deleted successfully ");
+        }else{
+            System.out.println("No record found");
+        }
+    }catch(SQLException e){
+    System.out.println("Error" + e.getMessage());
     }
 
 }
