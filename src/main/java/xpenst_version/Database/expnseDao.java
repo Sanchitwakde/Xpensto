@@ -60,7 +60,7 @@ public class expnseDao {
 
         int deletedrow = pstat.executeUpdate();
         if(deletedrow>0){
-            System.out.println(deletedrow + " record is deleted successfully ");
+            System.out.println("Expense deleted successfully ");
         }else{
             System.out.println("No record found");
         }
