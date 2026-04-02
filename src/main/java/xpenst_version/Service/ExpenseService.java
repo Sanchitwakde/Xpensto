@@ -47,12 +47,13 @@ public class ExpenseService {
         }
     }
     expnseDao dao = new expnseDao();
-    public void addExpense(Expense expnse){ //to add expenses in the list 
+    //To add expenses in the list 
+    public void addExpense(Expense expnse){ 
         dao.saveExp(expnse);
         expnselist.add(expnse);
     }
-
-    public void displayExpense(){ // to display expense list 
+    // To display current added expense  list
+    public void displayExpense(){ 
        System.out.println("__Expense List__");
         for(Expense e : expnselist){
             System.out.println("Item: " + e.getItem() +
@@ -62,9 +63,11 @@ public class ExpenseService {
             " | "+"Time: "+e.getTime());
         }
     }
+    // To view full expense list history
     public List<Expense> view_all(){
         return dao.view_all();
     }
+    // To delete a record 
     public void deleteRecord(int id){
         dao.deleteRecord(id);
     }
