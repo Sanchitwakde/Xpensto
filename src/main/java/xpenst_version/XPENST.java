@@ -22,7 +22,7 @@ public static void main(String[] args){
              //Connection to MySql Database 
             Connection conn = DataConnections.getConnection();
             if(conn != null){
-                System.out.println("Database is sucessfully connected ");
+                System.out.println("Database connected successfully ");
             }else{
                 System.out.println("Connection Failed");
             }
