@@ -71,6 +71,11 @@ public class ExpenseService {
     public void deleteRecord(int id){
         dao.deleteRecord(id);
     }
+    // To update expense
+    public void UpdateExpense(Expense uexp, int id){
+        dao.UpdateExpense(uexp, id);
+    }
+    }
     
     }
 
