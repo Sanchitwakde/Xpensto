@@ -67,6 +67,30 @@ public class expnseDao {
     }catch(SQLException e){
     System.out.println("Error" + e.getMessage());
     }
+}
+    public void UpdateExpense(Expense uexp, int id){
+        String sql = "Update expenses Set item = ?, amount = ?, category = ?, expense_date = ?, expense_time = ? WHERE id = ?";
+        try(Connection conn = DataConnections.getConnection();
+        PreparedStatement pstat = conn.prepareStatement(sql)){
+            
+            
+            pstat.setString(1,uexp.getItem());
+            pstat.setDouble(2,uexp.getAmount());
+            pstat.setString(3,uexp.getCategory());
+            pstat.setDate(4,java.sql.Date.valueOf(uexp.getDate()));
+            pstat.setTime(5,java.sql.Time.valueOf(uexp.getTime()));
+            pstat.setInt(6,id);
+            int rows = pstat.executeUpdate();
 
+            if(rows>0){
+                System.out.println(rows + " Updated Successfully");
+            }else{
+                System.out.println("No row found with this ID");
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Unable to Update the expense");
+        }
+    }
 }
 
