@@ -19,6 +19,8 @@ public static void main(String[] args){
             System.out.println("        ________Welcome to XPENST________");
             System.out.println("-> One stop destination to manage your Expenses <-");
 
+             ExpenseService service = new ExpenseService(in);
+            
              //Connection to MySql Database 
             Connection conn = DataConnections.getConnection();
             if(conn != null){
@@ -26,8 +28,13 @@ public static void main(String[] args){
             }else{
                 System.out.println("Connection Failed");
             }
+
+            String item ;
+            Double amt ;
+            LocalTime time ;
+            LocalDate date ;
+            String category ;
            
-            ExpenseService service = new ExpenseService(in);
             
             String loop_choice = "y";
             while(loop_choice.equalsIgnoreCase("y")){
@@ -78,14 +85,14 @@ public static void main(String[] args){
                     
             }
             System.out.print("Enter item: ");
-            String item = in.nextLine(); 
+            item = in.nextLine(); 
 
             System.out.print("Enter Amount: ");
-            double amt = in.nextDouble();
+            amt = in.nextDouble();
             in.nextLine();
 
-            LocalTime time = service.getTime(); // to get time 
-            LocalDate date = service.getDate(); // to get date 
+            time = service.getTime(); // to get time 
+            date = service.getDate(); // to get date 
             
             Expense expnse = new Expense(amt,item,category,date,time);
             
@@ -97,6 +104,54 @@ public static void main(String[] args){
             }
             case 2 ->{
                     System.out.println("---- Update Expense ----");
+                System.out.print("Enter row ID you want to update: ");
+                    int id = in.nextInt();
+                    in.nextLine();
+
+                    category = "";
+                    System.out.println("""
+                    Which category you want to select:
+                    1.Food
+                    2.Travel
+                    3.Shopping
+                    4.Education
+                    5.Loan
+                    6.EMI""");
+                    System.out.print("Enter your choice: ");
+                    int choice_category = in.nextInt();
+                    in.nextLine(); // to clear buffer
+                    
+                    switch(choice_category){
+                        case 1 -> category = "Food";
+                        
+                        case 2 -> category = "Travel";
+                        
+                        case 3 -> category = "Shopping";
+                        
+                        case 4 -> category = "Education";
+                        
+                        case 5 -> category = "Loan";
+                        
+                        case 6 -> category = "EMI";
+                        
+                        default -> System.out.println("Please choose a correct option");
+                        
+                    }
+
+                    System.out.print("Enter item: ");
+                    item = in.nextLine();
+                    
+                    System.out.print("Enter Amount: ");
+                    amt = in.nextDouble();
+                    in.nextLine();
+                    
+                    
+
+                    time = service.getTime(); // for time 
+                    date = service.getDate();
+                    
+                    Expense expnse = new Expense(amt,item,category,date,time);
+                    service.UpdateExpense(expnse,id);
 
                 }
             case 3->{
