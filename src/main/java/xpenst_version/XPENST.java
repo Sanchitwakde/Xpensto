@@ -47,7 +47,8 @@ public static void main(String[] args){
             2. Update Expense 
             3. View all Expenses
             4. Delete Expense
-            5. Exit""");
+            5. Total Expense
+            6. Exit""");
 
             System.out.print("Enter your choice: ");
             int menu_choice = in.nextInt();
@@ -178,6 +179,22 @@ public static void main(String[] args){
                 service.deleteRecord(delete);
                 }
                 case 5 ->{
+                    System.out.print("Which option you want to choose\n 1.Day\n 2.Month \n 3.Year \n ->");
+                    int sum_option = in.nextInt();
+                    in.nextLine();
+                    if(sum_option == 1){
+                        System.out.println("Enter Day from 1-31: ");
+                    }else if( sum_option == 2){
+                        System.out.println("Enter month 1-12: ");
+                    }else{
+                        System.out.println("Enter Year: ");
+                    }
+
+                    int sum_input = in.nextInt();
+
+                    service.sum_expense(sum_option,sum_input);
+                }
+                case 6 ->{
                 System.out.println("Thank you for using XPENST ");
                 return;
                 }
