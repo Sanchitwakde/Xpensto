@@ -75,6 +75,9 @@ public class ExpenseService {
     public void UpdateExpense(Expense uexp, int id){
         dao.UpdateExpense(uexp, id);
     }
+    // To get the sum of expense per day,month or year
+    public void sum_expense(int option, int value){
+        dao.sum_expense(option,value);
     }
     
     }
