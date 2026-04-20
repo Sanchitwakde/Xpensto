@@ -8,6 +8,7 @@ import java.util.*;
 import xpenst_version.Model.Expense;
 
 public class expnseDao {
+    //to save expense
     public void saveExp(Expense exps){
         try{
             Connection conn = DataConnections.getConnection();
@@ -26,7 +27,7 @@ public class expnseDao {
              System.out.println("Expense not added" + e.getMessage());
         }
     }
-
+    // to view all expenses 
     public List<Expense> view_all(){
         List<Expense> list = new ArrayList<>();
         String history_sql = "Select * from expenses";
@@ -52,6 +53,7 @@ public class expnseDao {
         }
         return list;
     }
+    // to delete a expense 
     public void deleteRecord(int id){
         String delete_sql = " delete from expenses where id = ?";
         try(Connection conn = DataConnections.getConnection();
@@ -68,6 +70,7 @@ public class expnseDao {
     System.out.println("Error" + e.getMessage());
     }
 }
+    //to update an existing expense 
     public void UpdateExpense(Expense uexp, int id){
         String sql = "Update expenses Set item = ?, amount = ?, category = ?, expense_date = ?, expense_time = ? WHERE id = ?";
         try(Connection conn = DataConnections.getConnection();
@@ -92,6 +95,7 @@ public class expnseDao {
             System.out.println("Unable to Update the expense");
         }
     }
+    // to find sum of expense (day, month, year)
     public void sum_expense(int option, int value){
         String sql= "";
         switch(option){
