@@ -22,7 +22,7 @@ public class ExpenseService {
             return expenseRepository.findById(id);
         }
         public ExpenseModel updateExpense(Long id, ExpenseModel updatedExpense) {
-            return expenseRepository.findByid(id)
+            return expenseRepository.findById(id)
                 .map(expense -> {
                 Expense.setAmount(updatedExpense.getAmount());
                 Expense.setItem(updatedExpense.getItem());
