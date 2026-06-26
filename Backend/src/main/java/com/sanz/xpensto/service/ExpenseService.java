@@ -15,6 +15,26 @@ public class ExpenseService {
         public ExpenseModel addExpense(ExpenseModel expense){
             return expenseRepository.save(expense);
         }
+        public List<ExpenseModel> getAllExpenses(){
+            return expenseRepository.findAll();
+        }
+        public Optional<ExpenseModel> getExpensebyId(Long id){
+            return expenseRepository.findById(id);
+        }
+        public ExpenseModel updateExpense(Long id, ExpenseModel updatedExpense) {
+            return expenseRepository.findByid(id)
+                .map(expense -> {
+                Expense.setAmount(updatedExpense.getAmount());
+                Expense.setItem(updatedExpense.getItem());
+                Expense.setCategory(updatedExpense.getCategory());
+                Expense.setDate(updatedExpense.getDate());
+                Expense.setTime(updatedExpense.getTime());
+                return expenseRepository.save(Expense);
+            }).orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
+        }
+        public void deleteExpense(Long id){
+            expenseRepository.deleteById(id);
+        }
     }
 
 
