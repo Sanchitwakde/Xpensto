@@ -8,7 +8,13 @@ import java.util.List;
 
 @Service
 public class ExpenseService {
-
+        private final ExpenseRepo expenseRepository;
+        public ExpenseService(ExpenseRepo expenseRepository){
+            this.expenseRepository = expenseRepository;
+        }
+        public ExpenseModel addExpense(ExpenseModel expense){
+            return expenseRepository.save(expense);
+        }
     }
 
 
