@@ -1,15 +1,19 @@
 package com.sanz.xpensto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore; // Jackson is responsible for converting Java objects into JSON
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity //entity class that tells that this class should be mapped to db table
-@Table(name = "Expenses")
+@Table(name = "expenses")
 public class ExpenseModel {
     @Id // to set primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // to auto generate id's
@@ -18,14 +22,19 @@ public class ExpenseModel {
     private String item;
     private String category;
     private LocalDate date; // date of purchase
-    private LocalTime time; //time of item purchase
+    private LocalTime createdAt; // time at which the expense was created (for db)
 
-    public ExpenseModel(double amount, String item, String category, LocalDate date, LocalTime time){
+    @ManyToOne
+    @JoinColoumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private UserModel user;
+
+    public ExpenseModel(double amount, String item, String category, LocalDate date, UserModel user){
         this.amount = amount;
         this.item = item;
         this.category = category;
         this.date = date;
-        this.time = time;
+        this.user = user
     }
 
     public ExpenseModel() { //empty constructor so that jpa can fill the fields
@@ -33,6 +42,10 @@ public class ExpenseModel {
 
     //getter methods to read values
     //setter methods to update values
+    @PrePersist
+    public void prePersist(){
+        this.createdAt = LocalDateTime.now();
+    }
     public Long getId(){
         return id;
     }
@@ -63,10 +76,13 @@ public class ExpenseModel {
     public void setDate(LocalDate date){
         this.date = date;
     }
-    public LocalTime getTime(){
-        return time;
+    public LocalDateTime getCreatedAte(){
+        return createdAt;
     }
-    public void setTime(LocalTime time){
-        this.time = time;
+    public UserModel getUser(){
+        return user;
+    }
+    public void setUser(UserModel user){
+        this.user = user;
     }
 }

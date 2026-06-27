@@ -24,12 +24,12 @@ public class ExpenseService {
         public ExpenseModel updateExpense(Long id, ExpenseModel updatedExpense) {
             return expenseRepository.findById(id)
                 .map(expense -> {
-                Expense.setAmount(updatedExpense.getAmount());
-                Expense.setItem(updatedExpense.getItem());
-                Expense.setCategory(updatedExpense.getCategory());
-                Expense.setDate(updatedExpense.getDate());
-                Expense.setTime(updatedExpense.getTime());
-                return expenseRepository.save(Expense);
+                expense.setAmount(updatedExpense.getAmount());
+                expense.setItem(updatedExpense.getItem());
+                expense.setCategory(updatedExpense.getCategory());
+                expense.setDate(updatedExpense.getDate());
+                expense.setTime(updatedExpense.getTime());
+                return expenseRepository.save(expense);
             }).orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
         }
         public void deleteExpense(Long id){
