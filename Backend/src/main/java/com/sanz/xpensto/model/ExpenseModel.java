@@ -9,9 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.Getter; //Lombok is used to remove the get and set boilerplate
+import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Setter
+@Getter
 @Entity //entity class that tells that this class should be mapped to db table
 @Table(name = "expenses")
 public class ExpenseModel {
@@ -25,7 +29,7 @@ public class ExpenseModel {
     private LocalTime createdAt; // time at which the expense was created (for db)
 
     @ManyToOne
-    @JoinColoumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private UserModel user;
 
@@ -34,7 +38,7 @@ public class ExpenseModel {
         this.item = item;
         this.category = category;
         this.date = date;
-        this.user = user
+        this.user = user;
     }
 
     public ExpenseModel() { //empty constructor so that jpa can fill the fields
@@ -44,45 +48,12 @@ public class ExpenseModel {
     //setter methods to update values
     @PrePersist
     public void prePersist(){
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalTime.now();
     }
     public Long getId(){
         return id;
     }
     public void setId(Long id){
         this.id = id;
-    }
-    public double getAmount(){
-        return amount;
-    }
-    public void setAmount(double amount){
-        this.amount = amount;
-    }
-    public String getItem(){
-        return item;
-    }
-    public void setItem(String item){
-        this.item = item;
-    }
-    public String getCategory() {
-        return category;
-    }
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public LocalDate getDate(){
-        return date;
-    }
-    public void setDate(LocalDate date){
-        this.date = date;
-    }
-    public LocalDateTime getCreatedAte(){
-        return createdAt;
-    }
-    public UserModel getUser(){
-        return user;
-    }
-    public void setUser(UserModel user){
-        this.user = user;
     }
 }

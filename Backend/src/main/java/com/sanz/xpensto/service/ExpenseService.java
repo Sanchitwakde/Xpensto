@@ -28,7 +28,7 @@ public class ExpenseService {
                 expense.setItem(updatedExpense.getItem());
                 expense.setCategory(updatedExpense.getCategory());
                 expense.setDate(updatedExpense.getDate());
-                expense.setTime(updatedExpense.getTime());
+                expense.setCreatedAt(updatedExpense.getCreatedAt());
                 return expenseRepository.save(expense);
             }).orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
         }
